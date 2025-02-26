@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Palanquin:wght@100;200;300;400;500;600;700&family=Sigmar&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .geral {
+    background-color: rgb(149, 171, 204);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  #paiDosInputs {
+    display: flex;
+    gap: 10px; 
+  }
+  
+  .input {
+    width: 60px; 
+    height: 60px;
+    background-color: rgb(149, 171, 204);
+    color: white;
+    border: solid rgb(24, 24, 24) 5px;
+    box-shadow: none;
+    caret-color: transparent;
+    border-radius: 10px;
+    font-size: 40px;
+    text-align: center;
+    font-family: "Palanquin", serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .input:focus {
+    outline: none;
+    box-shadow: none;
+    border-bottom: solid rgb(24, 24, 24) 10px;
+  }
+
+
+#botao{
+    color: whitesmoke;
+    font-family: "Palanquin", serif;
+    font-weight: 700;
+    font-style: normal;
+    user-select: none;
+}
+
+#botao:hover{
+    border-bottom: solid rgb(24, 24, 24) 3px;
+    cursor: pointer;
+}
+
+.image{
+    width: 20%;
+    position: absolute;
+    margin-left: -70%;
+}
+
+#letrasCertas{
+    margin-top: 3%;
+    display: flex;
+    gap: 10px;
+    font-size: 40px;
+    text-align: center;
+    font-family: "Palanquin", serif;
+    font-weight: 700;
+    font-style: normal;
+    display: flex;
+}
+
+.divizinha{
+    display: flex;
+}
+
+p{
+    padding: 10px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    border-radius: 10px;
+}
+
+  
