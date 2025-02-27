@@ -1,0 +1,29 @@
+body {
+    background-color: #222;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+h1 {
+    color: red;
+}
+.search-bar {
+    margin-bottom: 20px;
+}
+.pokemon-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.pokemon {
+    background-color: black;
+    border: 2px solid red;
+    color: yellow;
+    margin: 10px;
+    padding: 10px;
+    width: 150px;
+    border-radius: 10px;
+}
+img {
+    width: 100px;
+}
