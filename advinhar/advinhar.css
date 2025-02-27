@@ -61,7 +61,8 @@
     width: 20%;
     position: absolute;
     margin-left: -70%;
-}
+    mix-blend-mode: multiply;
+    }
 
 #letrasCertas{
     margin-top: 3%;
@@ -84,6 +85,13 @@ p{
     padding-top: 1px;
     padding-bottom: 1px;
     border-radius: 10px;
+    width: 60px;
+    height: 60px;
+    border: solid rgb(24, 24, 24) 5px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display:flex
 }
 
   
