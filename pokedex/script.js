@@ -1,38 +1,137 @@
-const apiUrl = "https://pokeapi.co/api/v2/pokemon?limit=1025";
+const API_URL = "https://pokeapi.co/api/v2/pokemon?limit=1010";
+
+//Setando os elementos do html
+const typeFilterContainer = document.getElementById("type-filters");
+const genFilter = document.getElementById("gen-filter");
+const orderFilter = document.getElementById("order-filter");
+const searchInput = document.getElementById("search");
+const container = document.getElementById("pokemon-container");
+
+//Lista de todos os pokemons
 let allPokemon = [];
 
+// Busca os Pokémon na API
 async function fetchPokemon() {
     try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
+        // Realiza uma requisição para obter os dados da API de Pokémon
+        const response = await fetch(API_URL);
         
-        const pokemonPromises = data.results.map(pokemon => fetch(pokemon.url).then(res => res.json()));
-        allPokemon = await Promise.all(pokemonPromises);
+        // Converte a resposta da API para JSON
+        const data = await response.json();
+
+        // Processa os dados de cada Pokémon da resposta
+        allPokemon = await Promise.all(data.results.map(async (poke, index) => {
+            // Para cada Pokémon, faz uma nova requisição para obter mais detalhes
+            const pokeData = await fetch(poke.url).then(res => res.json());
+            
+            // Retorna um objeto com os dados relevantes do Pokémon
+            return {
+                id: pokeData.id,  // ID do Pokémon
+                name: pokeData.name,  // Nome do Pokémon
+                sprite: pokeData.sprites.front_default,  // Imagem do Pokémon
+                types: pokeData.types.map(t => t.type.name),  // Tipos do Pokémon
+                height: pokeData.height,  // Altura do Pokémon
+                generation: getGeneration(pokeData.id)  // Geração do Pokémon (determinada pela função getGeneration)
+            };
+        }));
+
+        // Exibe os Pokémon na tela
         displayPokemon(allPokemon);
+        
+        // Preenche os filtros de tipos disponíveis
+        populateFilters();
     } catch (error) {
-        console.error("Erro ao buscar os Pokémon:", error);
+        // Caso ocorra um erro, exibe uma mensagem no console
+        window.alert("Erro ao buscar Pokémon:", error)
+        console.error("Erro ao buscar Pokémon:", error);
     }
 }
 
+// Setando a geração do Pokémon com base no ID
+function getGeneration(id) {
+    // Verifica o intervalo do ID para determinar a geração do Pokémon
+    if (id <= 151) return 1;
+    if (id <= 251) return 2;
+    if (id <= 386) return 3;
+    if (id <= 493) return 4;
+    if (id <= 649) return 5;
+    if (id <= 721) return 6;
+    if (id <= 809) return 7;
+    if (id <= 905) return 8;
+    return 9;  // Geração 9 para IDs acima de 905
+}
+
+// Exibe os Pokémon na tela
 function displayPokemon(pokemonList) {
-    const container = document.getElementById("pokemon-container");
+    // Limpa o conteúdo anterior do container onde os Pokémon serão exibidos
     container.innerHTML = "";
-    
+
+    // Itera sobre a lista de Pokémon para exibi-los na tela
     pokemonList.forEach(pokemon => {
-        const pokemonDiv = document.createElement("div");
-        pokemonDiv.classList.add("pokemon");
-        pokemonDiv.innerHTML = `
-            <h3>${pokemon.name.toUpperCase()}</h3>
-            <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+        // Cria um novo elemento div para cada Pokémon
+        const div = document.createElement("div");
+        div.classList.add("pokemon");
+
+        // Adiciona o conteúdo HTML do Pokémon (imagem, nome e tipos)
+        div.innerHTML = `
+            <img src="${pokemon.sprite}" alt="${pokemon.name}">
+            <p>${pokemon.name}</p>
+            <p>Tipo: ${pokemon.types.join(", ")}</p>
         `;
-        container.appendChild(pokemonDiv);
+
+        // Adiciona o div ao container
+        container.appendChild(div);
     });
 }
 
+// Filtra os Pokémon com base nos critérios selecionados
 function filterPokemon() {
-    const searchTerm = document.getElementById("search").value.toLowerCase();
-    const filtered = allPokemon.filter(pokemon => pokemon.name.includes(searchTerm));
-    displayPokemon(filtered);
+    // Obtém o texto de busca, tipos selecionados, geração e a ordem de exibição
+    const searchText = searchInput.value.toLowerCase();
+    const selectedTypes = getSelectedTypes();
+    const selectedGen = genFilter.value;
+    const order = orderFilter.value;
+
+    // Filtra os Pokémon de acordo com os critérios
+    let filteredPokemon = allPokemon.filter(pokemon =>
+        pokemon.name.includes(searchText) &&  // Verifica se o nome do Pokémon contém o texto de busca
+        (selectedTypes.length === 0 || selectedTypes.some(type => pokemon.types.includes(type))) &&  // Verifica se o Pokémon possui algum tipo selecionado
+        (selectedGen === "" || pokemon.generation == selectedGen)  // Verifica se o Pokémon pertence à geração selecionada
+    );
+
+    // Ordena os Pokémon conforme o critério selecionado (por nome ou por ID)
+    if (order === "a-z") {
+        filteredPokemon.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (order === "z-a") {
+        filteredPokemon.sort((a, b) => b.name.localeCompare(a.name));
+    } else {
+        filteredPokemon.sort((a, b) => a.id - b.id);
+    }
+
+    // Exibe os Pokémon filtrados na tela
+    displayPokemon(filteredPokemon);
 }
 
+// Obtém os tipos selecionados nos checkboxes
+function getSelectedTypes() {
+    // Retorna um array com os valores dos tipos que estão selecionados nos checkboxes
+    return Array.from(document.querySelectorAll("#type-filters input:checked")).map(input => input.value);
+}
+
+// Preenche os filtros de tipo dinamicamente
+function populateFilters() {
+    // Cria um array com tipos únicos de Pokémon
+    const uniqueTypes = [...new Set(allPokemon.flatMap(pokemon => pokemon.types))];
+    
+    // Para cada tipo, cria um checkbox e adiciona no container de filtros
+    uniqueTypes.forEach(type => {
+        const label = document.createElement("label");
+        label.innerHTML = `
+            <input type="checkbox" value="${type}" onchange="filterPokemon()"> ${type}
+        `;
+        typeFilterContainer.appendChild(label);
+    });
+}
+
+// Chama a função fetchPokemon para carregar os Pokémon da API
 fetchPokemon();
