@@ -1,4 +1,4 @@
-const apiUrl = "https://pokeapi.co/api/v2/pokemon?limit=151";
+const apiUrl = "https://pokeapi.co/api/v2/pokemon?limit=1025";
 let allPokemon = [];
 
 async function fetchPokemon() {
