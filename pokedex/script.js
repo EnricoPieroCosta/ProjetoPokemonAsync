@@ -36,7 +36,7 @@ async function fetchPokemon() {
   );
 
   //Exibe os Pokémon na tela
-  mostraPokemon(allPokemon);
+  displayPokemon(allPokemon);
 
   //coloca os filtros de tipos disponíveis
   populateFilters();
@@ -56,25 +56,27 @@ function getGeneration(id) {
   return 9; //Geração 9 para IDs acima de 905
 }
 
-function mostraPokemon(pokemonList) {
-  //Limpa o conteúdo anterior do container onde os Pokémon serão exibidos
-  container.innerHTML = "";
+// Exibe os Pokémon na tela
+function displayPokemon(pokemonList) {
+    container.innerHTML = "";
 
-  pokemonList.forEach((pokemon) => {
-    //Cria um novo elemento div para cada Pokémon
-    const div = document.createElement("div");
-    div.classList.add("pokemon");
+    pokemonList.forEach(pokemon => {
+        const div = document.createElement("div");
+        div.classList.add("pokemon");
 
-    //Inserta dados do pokemon na div a ser colocada na lista
-    div.innerHTML = `
+        // Adiciona evento de clique para redirecionar
+        div.onclick = () => {
+            window.location.href = `pages/detalhes.html?id=${pokemon.id}`;
+        };
+
+        div.innerHTML = `
             <img src="${pokemon.sprite}" alt="${pokemon.name}">
             <p>${pokemon.name}</p>
             <p>Tipo: ${pokemon.types.join(", ")}</p>
         `;
 
-    //Adiciona o div ao container
-    container.appendChild(div);
-  });
+        container.appendChild(div);
+    });
 }
 
 function filterPokemon() {
@@ -103,7 +105,7 @@ function filterPokemon() {
   }
 
   //Exibe os Pokémon filtrados na tela
-  mostraPokemon(filteredPokemon);
+  displayPokemon(filteredPokemon);
 }
 
 function getSelectedTypes() {
