@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #222;
+    background-color: rgb(149, 171, 204);
     color: white;
     font-family: 'Press Start 2P', Arial, sans-serif;
     text-align: center;
@@ -33,7 +33,7 @@ h1 {
 /* this is a recreation of twitter search in css */
 .form {
     --input-text-color: #ffffff;
-    --input-bg-color: rgb(186, 71, 26);
+    --input-bg-color: rgb(92, 118, 156);
     --focus-input-bg-color: transparent;
     --text-color: rgb(255, 242, 0);
     --active-color: #ee1b1b;
@@ -181,7 +181,7 @@ h1 {
 
 /* Estilização dos selects */
 select {
-    background-color: black;
+    background-color: rgb(68, 96, 137);
     color: yellow;
     border: 2px solid red;
     padding: 5px;
@@ -211,7 +211,7 @@ select {
 }
 
 .pokemon {
-    background-color: black;
+    background-color: rgb(68, 96, 137);
     border: 2px solid red;
     color: yellow;
     padding: 10px;
