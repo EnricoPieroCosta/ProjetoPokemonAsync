@@ -7,14 +7,13 @@ const orderFilter = document.getElementById("order-filter");
 const searchInput = document.getElementById("search");
 const container = document.getElementById("pokemon-container");
 
-//Lista de todos os pokemons
 let allPokemon = [];
 
 async function fetchPokemon() {
-  //Requisição para obter os dados da API
+  //RequestAPI
   const response = await fetch(API_URL);
 
-  //Converte a resposta para JSON
+  //Converte para JSON
   const data = await response.json();
 
   //Processa os dados de cada Pokémon da resposta
@@ -35,14 +34,12 @@ async function fetchPokemon() {
     })
   );
 
-  //Exibe os Pokémon na tela
   mostraPokemon(allPokemon);
 
-  //coloca os filtros de tipos disponíveis
   populateFilters();
 }
 
-//Setando a geração do Pokémon com base no ID
+//Escolhendo a geração dos Pokémons com base no ID
 function getGeneration(id) {
   //Verifica o intervalo do ID para determinar a geração do Pokémon
   if (id <= 151) return 1;
@@ -57,7 +54,7 @@ function getGeneration(id) {
 }
 
 function mostraPokemon(pokemonList) {
-  //Limpa o conteúdo anterior do container onde os Pokémon serão exibidos
+  //Limpa o conteúdo anterior do container onde mostra os Pokémons
   container.innerHTML = "";
 
   pokemonList.forEach((pokemon) => {
@@ -65,7 +62,7 @@ function mostraPokemon(pokemonList) {
     const div = document.createElement("div");
     div.classList.add("pokemon");
 
-    //Inserta dados do pokemon na div a ser colocada na lista
+    //Inputa os dados do pokemon na div a ser colocada na lista
     div.innerHTML = `
             <img src="${pokemon.sprite}" alt="${pokemon.name}">
             <p>${pokemon.name}</p>
@@ -78,19 +75,19 @@ function mostraPokemon(pokemonList) {
 }
 
 function filterPokemon() {
-  //Obtém o texto de busca, tipos selecionados, geração e a ordem de exibição
+  //Captura o texto de busca, tipos selecionados, geração e a ordem de exibição
   const searchText = searchInput.value.toLowerCase();
   const selectedTypes = getSelectedTypes();
   const selectedGen = genFilter.value;
   const order = orderFilter.value;
 
-  //Filtra os Pokémon de acordo com os critérios
+  //Filtra os Pokémon
   let filteredPokemon = allPokemon.filter(
     (pokemon) =>
-      pokemon.name.includes(searchText) && //Verifica se o nome do Pokémon contém o texto de busca
+      pokemon.name.includes(searchText) && 
       (selectedTypes.length === 0 ||
-        selectedTypes.some((type) => pokemon.types.includes(type))) && //Verifica se o Pokémon possui algum tipo selecionado
-      (selectedGen === "" || pokemon.generation == selectedGen) //Verifica se o Pokémon pertence à geração selecionada
+        selectedTypes.some((type) => pokemon.types.includes(type))) &&
+      (selectedGen === "" || pokemon.generation == selectedGen)
   );
 
   //Ordena os Pokémon conforme o critério selecionado (por nome ou por ID)
@@ -102,7 +99,6 @@ function filterPokemon() {
     filteredPokemon.sort((a, b) => a.id - b.id);
   }
 
-  //Exibe os Pokémon filtrados na tela
   mostraPokemon(filteredPokemon);
 }
 
@@ -119,7 +115,7 @@ function populateFilters() {
     ...new Set(allPokemon.flatMap((pokemon) => pokemon.types)),
   ];
 
-  //Para cada tipo, cria uma caixa e adiciona no container de filtros
+  //Para cada tipo, cria uma caixa e add no container
   uniqueTypes.forEach((type) => {
     const label = document.createElement("label");
     label.innerHTML = `
