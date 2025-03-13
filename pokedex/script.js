@@ -53,14 +53,14 @@ function getGeneration(id) {
   return 9; //Geração 9 para IDs acima de 905
 }
 
+
 function mostraPokemon(pokemonList) {
   //Limpa o conteúdo anterior do container onde mostra os Pokémons
   container.innerHTML = "";
 
-  pokemonList.forEach((pokemon) => {
-    //Cria um novo elemento div para cada Pokémon
-    const div = document.createElement("div");
-    div.classList.add("pokemon");
+    pokemonList.forEach(pokemon => {
+        const div = document.createElement("div");
+        div.classList.add("pokemon");
 
     //Inputa os dados do pokemon na div a ser colocada na lista
     div.innerHTML = `
@@ -69,9 +69,8 @@ function mostraPokemon(pokemonList) {
             <p>Tipo: ${pokemon.types.join(", ")}</p>
         `;
 
-    //Adiciona o div ao container
-    container.appendChild(div);
-  });
+        container.appendChild(div);
+    });
 }
 
 function filterPokemon() {

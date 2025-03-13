@@ -21,7 +21,7 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${numAleatorio}`, {
     imgPokemon = data.sprites.front_default;
     const img = document.createElement('img');
     img.classList.add('image');
-    img.style.filter = 'blur(5px)';
+    img.style.filter = 'blur(15px)';
     img.src = imgPokemon;
     geral.appendChild(img);
 
@@ -65,7 +65,7 @@ botao.addEventListener('click', async () => {
 
   const paiDeTodos = document.getElementById('paiDosInputs');
   
-  // Limpa as letras anteriores
+  
   divLetrasCertas.innerHTML = '';
 
   for (let j = 0; j < nomePokemon.length; j++) {
@@ -77,7 +77,7 @@ botao.addEventListener('click', async () => {
       corCerta.push('green');
       arrayLetras2.push(paiDeTodos.children[j].value.toLowerCase());
     } else {
-      corCerta.push('red');
+      corCerta.push('');
       arrayLetras2.push(' ');
     }
   }
