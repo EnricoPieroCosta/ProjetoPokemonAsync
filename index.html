@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main id="main-menu">
+        <h2>Bem-vindo</h2>
+        <p>Escolha um modo de jogo abaixo:</p>
+    
+        <div class="game-options">
+            <div class="game-card" id="battle-mode">
+                <h3>Batalha</h3>
+                <p>Escolha seu Pokémon e lute contra adversários!</p>
+                <button onclick="startBattle()">Jogar</button>
+            </div>
+    
+            <div class="game-card" id="guess-mode">
+                <h3>Adivinha</h3>
+                <p>Tente adivinhar o Pokémon pelo seu contorno!</p>
+                <button onclick="startGuess()">Jogar</button>
+            </div>
+    
+            <div class="game-card" id="pokedex-mode">
+                <h3>Pokédex</h3>
+                <p>Consulte detalhes de todos os Pokémon!</p>
+                <button onclick="openPokedex()">Explorar</button>
+            </div>
+        </div>
+    </main>
+    
+    <script src="script.js"></script>
+</body>
+</html>
