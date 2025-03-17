@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batalha!</title>
+    <link rel="stylesheet" href="batalha.css">
+    <script src="batalha.js" defer></script>
+</head>
+<body>
+    <div id="escolha-pokemon">
+        <div class="input" id="meu-poke-pesquisa">
+            <p>Escolha seu Pokémon!! (Pressione enter)</p>
+            <input type="text" id="pesquisa-meu-poke">
+        </div>
+    </div>
+    <div class="battle-container" id="battle-container">
+        <h2>Batalha Pokémon</h2>
+        <div class="pokemons">
+            <div id="meu-poke" class="invisivel">
+                <h3 id="nome-meu-poke">Meu Pokemon</h3>
+                <div class="hp-bar" id="hp-meu-poke"></div>
+                <div class="hp-porcentagem" id="hp-porcentagem-meu-poke">x%</div>
+                <br>
+                <img id="img-meu-poke" class="img-pokemon"src="" alt="imagem meu pokemon">
+                <br>
+                <button id="golpe-1">Ataque2</button>
+                <button id="golpe-2">Ataque1</button>
+            </div>
+            <div id="poke-adversario">
+                <h3 id="nome-poke-adversario">Pokemon Adversário</h3>
+                <div class="hp-bar" id="hp-poke-adversario"></div>
+                <div class="hp-porcentagem" id="hp-porcentagem-poke-adversario">x%</div>
+                <br>
+                <img id="img-poke-adversario" class="img-pokemon"src="" alt="imagem pokemon adversario">
+                <br>
+            </div>
+        </div>
+        <p class="message" id="message">Escolha um Pokémon!</p>
+    </div>
+    <p class="invisivel" id="report">Você ganhou</p>
+    <br>
+    <p class="invisivel" id="restart">Jogar Novamente</p>
+</body>
+</html>
