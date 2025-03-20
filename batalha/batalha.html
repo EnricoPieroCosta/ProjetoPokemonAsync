@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Batalha!</title>
     <link rel="stylesheet" href="batalha.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <script src="batalha.js" defer></script>
 </head>
 <body>
@@ -24,8 +25,10 @@
                 <br>
                 <img id="img-meu-poke" class="img-pokemon"src="" alt="imagem meu pokemon">
                 <br>
-                <button id="golpe-1">Ataque2</button>
-                <button id="golpe-2">Ataque1</button>
+                <div class="golpes">
+                    <button id="golpe-1">Ataque2</button>
+                    <button id="golpe-2">Ataque1</button>
+                </div>
             </div>
             <div id="poke-adversario">
                 <h3 id="nome-poke-adversario">Pokemon Adversário</h3>
@@ -40,6 +43,8 @@
     </div>
     <p class="invisivel" id="report">Você ganhou</p>
     <br>
-    <p class="invisivel" id="restart">Jogar Novamente</p>
+    <button class="invisivel" id="restart">Jogar Novamente</button>
+    
+    <a href=""><button>(Voltar)</button></a>
 </body>
 </html>
