@@ -105,7 +105,7 @@ async function escolherGolpeAdversario(){
 async function golpear(ataque) {
   hpPokemonAdversarioValor = hpPokemonAdversarioValor - (25 * fraquezasAdversario[ataque.tipo] || 25)
   hpPorcentagemPokemonAdversario.innerText = hpPokemonAdversarioValor + "%"
-  message.innerText = "Você usou " + ataque.nome + "!!!\n\nO Adversárioes está escolhendo seu golpe"
+  message.innerText = "Você usou " + ataque.nome + "!!!\n\nO Adversário está escolhendo seu golpe"
   ataque1MeuPokemon.classList.add("invisivel")
   ataque2MeuPokemon.classList.add("invisivel")
 }
