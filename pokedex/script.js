@@ -24,12 +24,12 @@ async function fetchPokemon() {
 
       //Retorna um objeto com os dados relevantes do Pokémon
       return {
-        id: pokeData.id, // ID do Pokémon
-        name: pokeData.name, // Nome do Pokémon
-        sprite: pokeData.sprites.front_default, // Imagem do Pokémon
-        types: pokeData.types.map((t) => t.type.name), // Tipos do Pokémon
-        height: pokeData.height, // Altura do Pokémon
-        generation: getGeneration(pokeData.id), // Geração do Pokémon (determinada pela função getGeneration)
+        id: pokeData.id,
+        name: pokeData.name,
+        sprite: pokeData.sprites.front_default,
+        types: pokeData.types.map((t) => t.type.name),
+        height: pokeData.height,
+        generation: getGeneration(pokeData.id),
       };
     })
   );
@@ -39,9 +39,7 @@ async function fetchPokemon() {
   populateFilters();
 }
 
-//Escolhendo a geração dos Pokémons com base no ID
 function getGeneration(id) {
-  //Verifica o intervalo do ID para determinar a geração do Pokémon
   if (id <= 151) return 1;
   if (id <= 251) return 2;
   if (id <= 386) return 3;
@@ -50,23 +48,20 @@ function getGeneration(id) {
   if (id <= 721) return 6;
   if (id <= 809) return 7;
   if (id <= 905) return 8;
-  return 9; //Geração 9 para IDs acima de 905
+  return 9;
 }
 
 function mostraPokemon(pokemonList) {
-  //Limpa o conteúdo anterior do container onde mostra os Pokémons
   container.innerHTML = "";
 
   pokemonList.forEach((pokemon) => {
     const div = document.createElement("div");
     div.classList.add("pokemon");
 
-    // Adiciona evento de clique para redirecionar
     div.onclick = () => {
         window.location.href = `pages/detalhes.html?id=${pokemon.id}`;
     };
 
-    //Inputa os dados do pokemon na div a ser colocada na lista
     div.innerHTML = `
             <img src="${pokemon.sprite}" alt="${pokemon.name}">
             <p>${pokemon.name}</p>
@@ -78,13 +73,11 @@ function mostraPokemon(pokemonList) {
 }
 
 function filterPokemon() {
-  //Captura o texto de busca, tipos selecionados, geração e a ordem de exibição
   const searchText = searchInput.value.toLowerCase();
   const selectedTypes = getSelectedTypes();
   const selectedGen = genFilter.value;
   const order = orderFilter.value;
 
-  //Filtra os Pokémon
   let filteredPokemon = allPokemon.filter(
     (pokemon) =>
       pokemon.name.includes(searchText) &&
@@ -118,7 +111,6 @@ function populateFilters() {
     ...new Set(allPokemon.flatMap((pokemon) => pokemon.types)),
   ];
 
-  //Para cada tipo, cria uma caixa e add no container
   uniqueTypes.forEach((type) => {
     const label = document.createElement("label");
     label.innerHTML = `
