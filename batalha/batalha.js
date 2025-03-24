@@ -80,6 +80,7 @@ function golpearAdversario(ataque){
   message.innerText = "Adversário usou " + ataque.nome + "!!!"
   hpMeuPokemonValor = hpMeuPokemonValor - (25 * fraquezasMeuPokemon[ataque.tipo] || 25)
   hpPorcentagemMeuPokemon.innerText = hpMeuPokemonValor + "%"
+  hpMeuPokemon.style.width = hpMeuPokemonValor + "%"; 
   if(hpMeuPokemonValor <= 0){
     setarVencedor(false)
   }
@@ -91,20 +92,20 @@ async function escolherGolpeAdversario(){
           golpearAdversario(ataque1Adversario)
           ataque1MeuPokemon.classList.remove("invisivel")
           ataque2MeuPokemon.classList.remove("invisivel")
-          message.innerText = "O Adversário usou "+ataque1Adversario.nome +"\nEscolha um golpe!!!"
+          message.innerText = "O Adversário usou "+ataque1Adversario.nome +"\n\nEscolha um golpe!!!"
         }
         else{
           golpearAdversario(ataque2Adversario)
           ataque1MeuPokemon.classList.remove("invisivel")
           ataque2MeuPokemon.classList.remove("invisivel")
-          message.innerText = "O Adversário usou "+ataque2Adversario.nome +"\nEscolha um golpe!!!"
+          message.innerText = "O Adversário usou "+ataque2Adversario.nome +"\n\nEscolha um golpe!!!"
         }
     }, Math.random() * 10000); 
 }
 async function golpear(ataque) {
   hpPokemonAdversarioValor = hpPokemonAdversarioValor - (25 * fraquezasAdversario[ataque.tipo] || 25)
   hpPorcentagemPokemonAdversario.innerText = hpPokemonAdversarioValor + "%"
-  message.innerText = "Você usou " + ataque.nome + "!!!\nO Adversárioes está escolhendo seu golpe"
+  message.innerText = "Você usou " + ataque.nome + "!!!\n\nO Adversárioes está escolhendo seu golpe"
   ataque1MeuPokemon.classList.add("invisivel")
   ataque2MeuPokemon.classList.add("invisivel")
 }
@@ -176,12 +177,14 @@ pesquisaMeuPokemon.addEventListener('keydown', async (event) => {
 
 ataque1MeuPokemon.addEventListener('click' ,async ()=>{
   await Promise.all([golpear(ataque1),escolherGolpeAdversario()])
+  hpPokemonAdversario.style.width = hpPokemonAdversarioValor + "%"
   if(hpPokemonAdversarioValor <= 0){
     setarVencedor(true)
   }
 })
 ataque2MeuPokemon.addEventListener('click', async()=>{
   await Promise.all([golpear(ataque2),escolherGolpeAdversario()])
+  hpPokemonAdversario.style.width = hpPokemonAdversarioValor + "%"
   if(hpPokemonAdversarioValor <= 0){    
     setarVencedor(true)
   }
