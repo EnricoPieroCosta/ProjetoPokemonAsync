@@ -94,4 +94,17 @@ p{
     display:flex
 }
 
-  
+button {
+  font-family: 'Press Start 2P', Arial, sans-serif;
+  flex: 1; 
+  max-width: 180px; 
+  max-height: 100px;
+  height: fit-content;
+  padding: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;}
