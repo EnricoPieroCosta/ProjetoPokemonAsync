@@ -71,20 +71,37 @@ botao.addEventListener('click', async () => {
   for (let j = 0; j < nomePokemon.length; j++) {
     console.log(nomePokemon[j]);
     console.log(paiDeTodos.children[j].value);
-
-    if (nomePokemon[j].toLowerCase() === paiDeTodos.children[j].value.toLowerCase()) {
-      cont++;
-      corCerta.push('green');
-      arrayLetras2.push(paiDeTodos.children[j].value.toLowerCase());
-    } else {
+    if(nomePokemon.includes(paiDeTodos.children[j].value)){
+        corCerta.push('yellow')
+        arrayLetras2.push(paiDeTodos.children[j].value.toLowerCase());
+        if (nomePokemon[j].toLowerCase() === paiDeTodos.children[j].value.toLowerCase()) {
+          cont++;
+          corCerta.pop();
+          corCerta.push('green');
+          arrayLetras2.pop()
+          arrayLetras2.push(paiDeTodos.children[j].value.toLowerCase());
+        }
+    }else {
       corCerta.push('');
       arrayLetras2.push(' ');
     }
   }
 
   if (cont === nomePokemon.length) {
-    alert('Você acertou o Pokémon!');
-    location.reload();
+    for (let j = 0; j < arrayLetras2.length; j++) {
+      const div = document.createElement('div')
+      div.classList.add('divizinha')
+      const p = document.createElement('p');
+      p.textContent = arrayLetras2[j];
+      p.style.backgroundColor = corCerta[j]; 
+      div.appendChild(p)
+      divLetrasCertas.appendChild(div);
+    }
+    setTimeout(() => {
+      alert('Você acertou o Pokémon!');
+      location.reload();
+    }, 2000);
+  
   } else {
     for (let j = 0; j < arrayLetras2.length; j++) {
       const div = document.createElement('div')

@@ -9,7 +9,101 @@
 
 ## A batalha é constituida por um pokemon que você escolhe e um sorteado aleatoriamente ai é sorteado os golpes do pokemon escolhido pelo usuário e tambem pelo sorteado. Então a luta da inicio com cada um fazendo um ataque até o outro até um deles zerar a vida do outro.
 
-## O advinha é constituido por um pokemon que é sorteado aleatoriamente e o usuário deve acertar por um input com o número de caixas sendo o número de letras do nome, existe uma lógica para fornecer dicas sendo a letra que você acertar já fica verde e facilita advinhar
+
+## Documentação do Código - Jogo de Adivinhação de Pokémon
+## Resumo
+Este código cria um jogo interativo onde o usuário deve adivinhar o nome de um Pokémon gerado aleatoriamente pela PokéAPI. A imagem do Pokémon aparece borrada, e o jogador deve inserir letras para tentar formar o nome correto. O jogo fornece feedback visual para indicar quais letras estão corretas.
+
+## Funcionamento das Funções
+1. Obtém um Pokémon aleatório da PokéAPI
+Um número aleatório entre 0 e 100 é gerado para selecionar um Pokémon.
+
+O código faz uma requisição à PokéAPI (https://pokeapi.co/api/v2/pokemon/{id}) para obter os dados do Pokémon.
+
+A resposta da API contém o nome e a imagem do Pokémon. A imagem é exibida borrada na tela para dificultar a adivinhação.
+
+javascript
+Copiar
+Editar
+fetch(`https://pokeapi.co/api/v2/pokemon/${numAleatorio}`, {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+2. Criação dos inputs para a adivinhação
+A quantidade de inputs criados é igual ao número de letras do nome do Pokémon.
+
+Cada input permite apenas 1 letra.
+
+O foco muda automaticamente para o próximo input ao digitar uma letra. Se uma letra for apagada, o foco retorna ao input anterior.
+
+javascript
+Copiar
+Editar
+for (let i = 0; i < qntInputs; i++) {
+  input = document.createElement('input');
+  input.type = "text";
+  input.maxLength = "1";
+  input.classList.add('input');
+  
+  input.addEventListener('input', (event) => {
+    const currentInput = event.target;
+    const nextInput = currentInput.nextElementSibling;
+    const prevInput = currentInput.previousElementSibling;
+
+    if (currentInput.value.length === 1 && nextInput) {
+      nextInput.focus();
+    } else if (currentInput.value.length === 0 && prevInput) {
+      prevInput.focus();
+    }
+  });
+
+  paiDosInputs.appendChild(input);
+}
+3. Validação da resposta
+O código verifica as letras digitadas e compara com o nome do Pokémon.
+
+Se a letra estiver no nome, mas na posição errada, ela fica amarela.
+
+Se a letra estiver na posição correta, ela fica verde.
+
+Se todas as letras forem acertadas, o jogo exibe um alerta de vitória e recarrega a página após 2 segundos.
+
+javascript
+Copiar
+Editar
+if (cont === nomePokemon.length) {
+  setTimeout(() => {
+    alert('Você acertou o Pokémon!');
+    location.reload();
+  }, 2000);
+}
+4. Exibição do feedback visual
+Após cada tentativa, uma linha de quadrados coloridos é gerada, mostrando o status das letras digitadas.
+
+O código adiciona elementos <div> para cada letra, com a cor correspondente ao status da tentativa.
+
+javascript
+Copiar
+Editar
+const div = document.createElement('div');
+div.classList.add('divizinha');
+const p = document.createElement('p');
+p.textContent = arrayLetras2[j];
+p.style.backgroundColor = corCerta[j]; 
+div.appendChild(p);
+divLetrasCertas.appendChild(div);
+Estrutura do Código
+Busca um Pokémon aleatório na API.
+
+Cria os inputs para inserir letras.
+
+Permite ao jogador inserir letras e verifica a correspondência com o nome do Pokémon.
+
+Dá feedback visual ao jogador sobre as letras corretas ou erradas.
+
+Se acertar todas as letras, exibe uma mensagem e reinicia o jogo.
 
 ## Documentação do Código - Pokédex
 
